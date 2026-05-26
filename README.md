@@ -366,5 +366,5 @@ See [TRADEOFFS.md](TRADEOFFS.md) for full context.
 
 ---
 
-Built by: Sagar Prabhu (MCA, Manipal Institute of Technology)  
+Built by: Sharadhi Prabhu (MCA, Manipal Institute of Technology)  
 For: Breathe ESG Tech Intern Assignment — May 2026
