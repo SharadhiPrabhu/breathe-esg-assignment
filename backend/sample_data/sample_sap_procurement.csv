@@ -1,0 +1,11 @@
+Material,Material Description,Quantity,Unit,Posting Date,Plant,Vendor
+FUEL-DSL-001,Diesel Fuel EN590,1250.00,liter,2024-01-08,Manchester Warehouse (GB01),Shell UK Ltd
+FUEL-PET-001,Unleaded Petrol 95 RON,875.00,liter,2024-01-15,London Distribution Centre (GB02),BP PLC
+FUEL-DSL-001,Diesel Fuel EN590,1980.00,liter,2024-02-03,Birmingham Depot (GB03),Shell UK Ltd
+FUEL-GAS-001,Natural Gas (Compressed),4500.00,kWh,2024-02-19,Manchester Warehouse (GB01),British Gas Business
+FUEL-DSL-001,Diesel Fuel EN590,630.00,liter,2024-03-11,Edinburgh Facility (GB04),Certas Energy UK
+FUEL-PET-001,Unleaded Petrol 95 RON,510.00,liter,2024-03-28,London Distribution Centre (GB02),BP PLC
+FUEL-DSL-002,Diesel HVO (Hydrotreated),1450.00,liter,2024-04-05,Bristol Logistics Hub (GB05),Greenergy Fuels Ltd
+FUEL-GAS-001,Natural Gas (Compressed),3200.00,kWh,2024-04-22,Birmingham Depot (GB03),British Gas Business
+FUEL-DSL-001,Diesel Fuel EN590,1760.00,liter,2024-05-14,Manchester Warehouse (GB01),Shell UK Ltd
+FUEL-PET-002,Super Unleaded Petrol 98 RON,425.00,liter,2024-05-30,Edinburgh Facility (GB04),Certas Energy UK

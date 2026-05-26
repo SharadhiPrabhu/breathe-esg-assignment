@@ -1,0 +1,6 @@
+Date,Employee,From,To,Distance,Mode,Flight Class
+2025-03-04,Alice Johnson,London,New York,5570,flight,economy
+2025-03-10,Bob Chen,London,Paris,456,rail,
+2025-03-15,Alice Johnson,New York,San Francisco,4130,flight,business
+2025-03-18,Carol Davis,Chicago,Milwaukee,148,car,
+2025-03-22,Bob Chen,Paris,Amsterdam,430,rail,
