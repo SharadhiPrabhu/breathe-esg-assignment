@@ -12,8 +12,6 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",") if os.getenv("ALLOWED_HOSTS") else []
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -59,17 +57,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "breathe_esg.wsgi.application"
 
-_db_url = os.getenv("DATABASE_URL")
-if _db_url:
-    DATABASES = {"default": dj_database_url.parse(_db_url, conn_max_age=600)}
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
-
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -83,7 +70,6 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -103,12 +89,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
 ]
-CORS_ALLOW_ALL_ORIGINS = True  
 
 AUTH_USER_MODEL = 'core.User'
 
-import dj_database_url
-import os
+# ── Production overrides ──────────────────────────────────────────────────────
 
 DATABASE_URL = os.environ.get('DATABASE_URL')
 if DATABASE_URL:
@@ -118,6 +102,13 @@ if DATABASE_URL:
             conn_max_age=600,
             ssl_require=False,
         )
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
 
 CORS_ALLOW_ALL_ORIGINS = True
