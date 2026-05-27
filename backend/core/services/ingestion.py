@@ -1,9 +1,9 @@
+import csv
 import io
 import logging
 from datetime import datetime
 from typing import Optional
 
-import pandas as pd
 from django.db import transaction
 from django.utils import timezone
 
@@ -26,17 +26,34 @@ SOURCE_SIGNATURES = {
 }
 
 
+def _read_csv(content: str) -> tuple[list[str], list[dict]]:
+    """
+    Parse CSV content into (stripped_headers, list_of_row_dicts).
+    Values are always strings; empty cells become "".
+    """
+    reader = csv.reader(io.StringIO(content))
+    raw_headers = next(reader, [])
+    headers = [h.strip() for h in raw_headers]
+
+    rows = []
+    for row in reader:
+        # Pad short rows, trim long rows to match header count
+        padded = (row + [""] * len(headers))[: len(headers)]
+        rows.append(dict(zip(headers, padded)))
+    return headers, rows
+
+
 class IngestionService:
 
     @staticmethod
     def detect_source_type(file_content: str) -> Optional[str]:
         """Return the source type key whose signature best matches the CSV headers."""
         try:
-            sample = pd.read_csv(io.StringIO(file_content), nrows=0)
+            headers_raw, _ = _read_csv(file_content)
         except Exception:
             return None
 
-        headers = {col.strip().lower() for col in sample.columns}
+        headers = {h.lower() for h in headers_raw}
 
         best_match = None
         best_score = 0
@@ -73,8 +90,7 @@ class IngestionService:
             if isinstance(content, bytes):
                 content = content.decode("utf-8-sig")  # handle BOM-prefixed files
 
-            df = pd.read_csv(io.StringIO(content), dtype=str, keep_default_na=False)
-            df.columns = df.columns.str.strip()
+            headers, rows = _read_csv(content)
 
         except Exception as exc:
             logger.exception("Failed to read CSV for batch %s", ingestion_batch.id)
@@ -86,7 +102,7 @@ class IngestionService:
 
         # Validate that required columns are present
         required = REQUIRED_COLUMNS.get(source_type, [])
-        missing = [col for col in required if col not in df.columns]
+        missing = [col for col in required if col not in headers]
         if missing:
             msg = f"Missing required columns: {', '.join(missing)}"
             logger.warning("Batch %s: %s", ingestion_batch.id, msg)
@@ -96,14 +112,13 @@ class IngestionService:
             ingestion_batch.save(update_fields=["status", "error_log", "processing_completed_at"])
             return 0, 0, [msg]
 
-        total_rows = len(df)
+        total_rows = len(rows)
         ingestion_batch.total_rows = total_rows
         ingestion_batch.save(update_fields=["total_rows"])
 
         raw_records = []
-        for idx, row in df.iterrows():
+        for idx, row_dict in enumerate(rows):
             row_number = idx + 2  # 1-based, +1 for header row
-            row_dict = row.to_dict()
 
             is_valid, row_errors = IngestionService.validate_row(row_dict, source_type)
 
