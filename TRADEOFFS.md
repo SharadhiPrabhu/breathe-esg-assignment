@@ -69,11 +69,14 @@
 - Activity logs (who viewed which record, and when)
 - Password reset, email verification, 2FA
 
-**Why I didn't build it:**
+**What is implemented vs. deferred:**
+- **PostgreSQL on Railway**: The deployed backend uses PostgreSQL via `DATABASE_URL` (configured through `dj_database_url`). SQLite is retained as the local development fallback. Database infrastructure is production-ready.
+- **Authentication**: Still disabled for demo evaluation (`AllowAny` permissions). The schema is auth-ready but the API layer has no enforcement.
+
+**Why authentication is deferred:**
 - **Demo purpose**: Assignment reviewers need immediate access without a login flow
 - **Time vs value**: 4 days better spent on data model correctness and calculation accuracy
 - **Already designed**: The `User` model has a `role` field; `EmissionRecordEdit` tracks who changed what; `is_audit_locked` prevents unauthorized changes — the schema is auth-ready
-- **Security context**: A local demo running on localhost does not need production-grade auth
 - **Framework support**: Django REST Framework + SimpleJWT makes this straightforward to retrofit without schema changes
 
 **What I built instead:**
