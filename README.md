@@ -32,6 +32,7 @@ Full-stack carbon emissions tracking platform for ingesting, normalizing, and re
 - Audit lock (prevent edits to records included in verified reports)
 - Professional dashboard with bar chart and stats
 - Dark mode (slate palette, persisted in localStorage)
+- Mobile responsive design (works on desktop, tablet, and mobile)
 
 ---
 
