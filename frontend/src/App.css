@@ -314,9 +314,10 @@ body {
   border-radius: var(--radius);
   border: none;
   background: transparent;
+  color: var(--text-secondary);
   font-size: 16px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, color 0.15s;
 }
 .topbar-icon-btn:hover { background: var(--bg); }
 
