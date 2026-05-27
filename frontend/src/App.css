@@ -302,6 +302,7 @@ body {
   align-items: center;
   gap: 4px;
   margin-left: auto;
+  flex-shrink: 0;
 }
 
 .topbar-icon-btn {
@@ -731,6 +732,9 @@ select.form-control { cursor: pointer; }
 
   /* Show hamburger button */
   .topbar-menu-btn { display: flex; }
+
+  /* Tighten topbar padding so right-side icons have room */
+  .topbar { padding: 0 12px; }
 
   .main-content { padding: 24px 16px; }
   .footer { padding: 14px 16px; }
