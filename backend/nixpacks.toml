@@ -5,4 +5,4 @@ nixPkgs = ["python311", "gcc"]
 cmds = ["pip install --upgrade pip", "pip install -r requirements.txt"]
 
 [start]
-cmd = "python manage.py migrate --run-syncdb && python manage.py seed_data && gunicorn breathe_esg.wsgi:application --bind 0.0.0.0:$PORT --workers 1 --timeout 120"
+cmd = "python manage.py makemigrations && python manage.py migrate && python manage.py seed_data && gunicorn breathe_esg.wsgi:application --bind 0.0.0.0:$PORT --workers 1 --timeout 120"
