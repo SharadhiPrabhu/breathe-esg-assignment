@@ -107,18 +107,19 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = 'core.User'
 
-# Production settings
-import os
 import dj_database_url
+import os
 
-ALLOWED_HOSTS = ['*']
-
-if 'DATABASE_URL' in os.environ:
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
     DATABASES = {
         'default': dj_database_url.config(
-            default=os.environ['DATABASE_URL'],
+            default=DATABASE_URL,
             conn_max_age=600,
+            ssl_require=False,
         )
     }
 
+CORS_ALLOW_ALL_ORIGINS = True
+ALLOWED_HOSTS = ['*']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
