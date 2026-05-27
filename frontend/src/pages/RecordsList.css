@@ -406,3 +406,11 @@
 
   .pagination { flex-direction: column; gap: 10px; text-align: center; }
 }
+
+/* Mobile: allow table to scroll horizontally */
+@media (max-width: 767px) {
+  .records-table-card {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

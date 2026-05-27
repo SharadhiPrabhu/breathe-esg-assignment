@@ -704,6 +704,16 @@ select.form-control { cursor: pointer; }
 /* ═══════════════════════════════════════════════
    RESPONSIVE  (mobile sidebar)
 ═══════════════════════════════════════════════ */
+/* Tablet (768px – 1024px): stat grid 2 columns */
+@media (max-width: 1024px) {
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Mobile (< 768px): stat grid 1 column */
+@media (max-width: 767px) {
+  .stat-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 768px) {
   /* Hide sidebar off-screen on mobile; reveal when --open */
   .sidebar {

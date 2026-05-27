@@ -233,14 +233,16 @@
 /* ─────────────────────────────────────────────
    Responsive
 ───────────────────────────────────────────── */
-@media (max-width: 768px) {
+/* Tablet (768px – 1024px): 2-column stat grid */
+@media (max-width: 1024px) {
   .stat-grid { grid-template-columns: repeat(2, 1fr); }
   .dash-header { flex-direction: column; }
   .date-range-pill { align-self: flex-start; }
-  .scope-legend { gap: 12px; }
 }
 
-@media (max-width: 480px) {
+/* Mobile (< 768px): single column, compact values */
+@media (max-width: 767px) {
   .stat-grid { grid-template-columns: 1fr; }
   .stat-value { font-size: 24px; }
+  .scope-legend { gap: 12px; }
 }
