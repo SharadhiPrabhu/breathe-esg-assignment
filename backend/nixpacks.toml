@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["python39", "gcc", "libffi", "openssl"]
+nixPkgs = ["python39", "gcc", "libffi", "openssl", "postgresql"]
 
 [phases.install]
 cmds = ["pip install --upgrade pip setuptools wheel", "pip install -r requirements.txt"]
