@@ -12,8 +12,9 @@ Full-stack carbon emissions tracking platform for ingesting, normalizing, and re
 
 ## Live Demo
 
-**Deployed Application:** [URL will be added after deployment]  
-**Login:** No authentication required (demo mode — all endpoints use `AllowAny`)
+**Frontend:** https://breathe-esg-assignment-16xb.vercel.app  
+**Backend API:** https://breathe-esg-assignment-production-d5dd.up.railway.app/api/v1/  
+**Login:** No authentication required (demo mode)
 
 ---
 
