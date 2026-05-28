@@ -14,7 +14,7 @@ Full-stack carbon emissions tracking platform for ingesting, normalizing, and re
 
 **Frontend:** https://breathe-esg-assignment-16xb.vercel.app  
 **Backend API:** https://breathe-esg-assignment-production-d5dd.up.railway.app/api/v1/  
-**Login:** No authentication required (demo mode)
+**Login:** No authentication required (demo mode — all endpoints use AllowAny)
 
 ---
 
@@ -314,7 +314,7 @@ See [TRADEOFFS.md](TRADEOFFS.md) for full context.
 - **No real-time API integration** — CSV file upload only
 - **Scope 3 coverage** — Category 6 (business travel) only; Categories 1–15 not fully implemented
 - **No authentication** — disabled for demo evaluation
-- **SQLite in demo** — set `DATABASE_URL=postgresql://...` to switch to PostgreSQL
+- **Database** — currently using SQLite via Railway; PostgreSQL can be configured by setting DATABASE_URL environment variable
 - **Synchronous upload processing** — large files (10,000+ rows) will be slow; Celery would be the production fix
 
 ---
