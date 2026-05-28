@@ -314,7 +314,7 @@ See [TRADEOFFS.md](TRADEOFFS.md) for full context.
 - **No real-time API integration** — CSV file upload only
 - **Scope 3 coverage** — Category 6 (business travel) only; Categories 1–15 not fully implemented
 - **No authentication** — disabled for demo evaluation
-- **Database** — currently using SQLite via Railway; PostgreSQL can be configured by setting DATABASE_URL environment variable
+- **Database** — PostgreSQL on Railway (production); SQLite for local development
 - **Synchronous upload processing** — large files (10,000+ rows) will be slow; Celery would be the production fix
 
 ---
@@ -323,7 +323,7 @@ See [TRADEOFFS.md](TRADEOFFS.md) for full context.
 
 - [ ] Enable JWT authentication (`djangorestframework-simplejwt`)
 - [ ] Enforce role-based permissions per viewset
-- [ ] Switch `DATABASE_URL` to PostgreSQL
+- [x] Switch `DATABASE_URL` to PostgreSQL — Done (Railway PostgreSQL)
 - [ ] Move CSV processing to Celery background tasks
 - [ ] Add API rate limiting
 - [ ] Configure `ALLOWED_HOSTS` and disable `DEBUG`
