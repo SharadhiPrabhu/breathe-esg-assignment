@@ -370,3 +370,5 @@ See [TRADEOFFS.md](TRADEOFFS.md) for full context.
 
 Built by: Sharadhi  
 For: Breathe ESG Tech Intern Assignment — May 2026
+   
+ 
