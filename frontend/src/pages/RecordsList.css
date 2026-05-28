@@ -362,7 +362,7 @@
   display: grid;
   grid-template-columns: 2fr 1.2fr 1.2fr 1.2fr 1.2fr;
   gap: 14px;
-  align-items: end;
+  align-items: start;
 }
 
 @media (max-width: 1100px) {
