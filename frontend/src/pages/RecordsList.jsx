@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Search, SlidersHorizontal, Calendar, Download } from 'lucide-react';
+import { Search, SlidersHorizontal, Calendar, Download, ChevronDown } from 'lucide-react';
 import './RecordsList.css';
 import { getEmissionRecords } from '../api';
 
@@ -58,6 +58,7 @@ function RecordsList() {
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState(null);
+  const [filtersOpen, setFiltersOpen] = useState(true);
 
   // Derive filter state from URL so the browser back button works
   const filters = {
@@ -142,7 +143,11 @@ function RecordsList() {
 
       {/* ── Filters ── */}
       <div className="card" style={{ marginBottom: 20 }}>
-        <div className="card-header" style={{ padding: '10px 16px', fontSize: 13 }}>
+        <div
+          className="card-header"
+          style={{ padding: '10px 16px', fontSize: 13, cursor: 'pointer', userSelect: 'none' }}
+          onClick={() => setFiltersOpen(o => !o)}
+        >
           <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <SlidersHorizontal size={14} />
             Filters
@@ -150,67 +155,74 @@ function RecordsList() {
               <span className="badge badge-pending" style={{ fontSize: 10 }}>{activeFilterCount}</span>
             )}
           </span>
-          {activeFilterCount > 0 && (
-            <button className="btn btn-secondary" onClick={() => setSearchParams({})}
-              style={{ fontSize: 12, padding: '3px 8px' }}>
-              Clear all
-            </button>
-          )}
-        </div>
-        <div className="card-body" style={{ padding: '14px 16px' }}>
-          <div className="filters-grid">
-
-            <div>
-              <label className="form-label" style={{ marginBottom: 4 }}>Search</label>
-              <div className="input-icon-wrap">
-                <span className="input-icon"><Search size={14} /></span>
-                <input
-                  className="form-control"
-                  type="search"
-                  placeholder="Activity type, location…"
-                  value={filters.search}
-                  onChange={(e) => setFilter('search', e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="form-label" style={{ marginBottom: 4 }}>Review Status</label>
-              <select className="form-control" value={filters.review_status} onChange={(e) => setFilter('review_status', e.target.value)}>
-                <option value="">All statuses</option>
-                <option value="pending">Pending</option>
-                <option value="approved">Approved</option>
-                <option value="needs_info">Needs Info</option>
-                <option value="rejected">Rejected</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="form-label" style={{ marginBottom: 4 }}>GHG Scope</label>
-              <select className="form-control" value={filters.ghg_scope} onChange={(e) => setFilter('ghg_scope', e.target.value)}>
-                <option value="">All scopes</option>
-                <option value="1">Scope 1</option>
-                <option value="2">Scope 2</option>
-                <option value="3">Scope 3</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="form-label" style={{ marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
-                <Calendar size={13} /> Date from
-              </label>
-              <input className="form-control" type="date" value={filters.activity_date_from} onChange={(e) => setFilter('activity_date_from', e.target.value)} />
-            </div>
-
-            <div>
-              <label className="form-label" style={{ marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
-                <Calendar size={13} /> Date to
-              </label>
-              <input className="form-control" type="date" value={filters.activity_date_to} onChange={(e) => setFilter('activity_date_to', e.target.value)} />
-            </div>
-
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            {activeFilterCount > 0 && (
+              <button
+                className="btn btn-secondary"
+                onClick={(e) => { e.stopPropagation(); setSearchParams({}); }}
+                style={{ fontSize: 12, padding: '3px 8px' }}
+              >
+                Clear all
+              </button>
+            )}
+            <ChevronDown
+              size={15}
+              style={{ color: 'var(--text-muted)', transition: 'transform 0.2s', transform: filtersOpen ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+            />
           </div>
         </div>
+        {filtersOpen && (
+          <div className="card-body" style={{ padding: '14px 16px' }}>
+            <div className="filters-grid">
+
+              <div>
+                <label className="form-label" style={{ marginBottom: 4 }}>Search</label>
+                <div className="input-icon-wrap">
+                  <span className="input-icon"><Search size={14} /></span>
+                  <input
+                    className="form-control"
+                    type="search"
+                    placeholder="Activity type, location…"
+                    value={filters.search}
+                    onChange={(e) => setFilter('search', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="form-label" style={{ marginBottom: 4 }}>Review Status</label>
+                <select className="form-control" value={filters.review_status} onChange={(e) => setFilter('review_status', e.target.value)}>
+                  <option value="">All statuses</option>
+                  <option value="pending">Pending</option>
+                  <option value="approved">Approved</option>
+                  <option value="needs_info">Needs Info</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="form-label" style={{ marginBottom: 4 }}>GHG Scope</label>
+                <select className="form-control" value={filters.ghg_scope} onChange={(e) => setFilter('ghg_scope', e.target.value)}>
+                  <option value="">All scopes</option>
+                  <option value="1">Scope 1</option>
+                  <option value="2">Scope 2</option>
+                  <option value="3">Scope 3</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="form-label" style={{ marginBottom: 4 }}>Date from</label>
+                <input className="form-control" type="date" value={filters.activity_date_from} onChange={(e) => setFilter('activity_date_from', e.target.value)} />
+              </div>
+
+              <div>
+                <label className="form-label" style={{ marginBottom: 4 }}>Date to</label>
+                <input className="form-control" type="date" value={filters.activity_date_to} onChange={(e) => setFilter('activity_date_to', e.target.value)} />
+              </div>
+
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ── Table ── */}
