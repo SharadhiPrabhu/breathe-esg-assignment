@@ -9,7 +9,7 @@
 
 .upload-layout {
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: 1fr 320px;
   gap: 24px;
   align-items: start;
 }
@@ -348,18 +348,34 @@
 }
 
 /* ─────────────────────────────────────────────
+   Select option visibility
+   (options don't inherit background/color from
+   the select element in most mobile browsers)
+───────────────────────────────────────────── */
+.form-group select option {
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+/* ─────────────────────────────────────────────
    Responsive
 ───────────────────────────────────────────── */
 @media (max-width: 767px) {
   .upload-layout {
     grid-template-columns: 1fr;
   }
-}
 
-@media (max-width: 480px) {
   .upload-form { padding: 16px; }
 
   .drop-zone { padding: 24px 16px; }
 
+  .form-group select,
+  .form-group input[type="text"],
+  .form-group input[type="email"] {
+    font-size: 16px; /* prevents iOS auto-zoom on focus */
+  }
+}
+
+@media (max-width: 480px) {
   .success-stats { grid-template-columns: repeat(2, 1fr); }
 }

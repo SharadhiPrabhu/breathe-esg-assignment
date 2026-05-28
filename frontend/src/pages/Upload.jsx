@@ -133,7 +133,7 @@ function Upload() {
         <p>Import SAP procurement, utility electricity, or corporate travel CSV files</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 24, alignItems: 'start' }}>
+      <div className="upload-layout">
 
         {/* ── Upload form ── */}
         <div className="card">
