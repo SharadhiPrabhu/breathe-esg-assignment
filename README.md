@@ -1,4 +1,4 @@
-﻿# Breathe ESG â€” Carbon Emissions Tracking Platform
+﻿# Breathe ESG — Carbon Emissions Tracking Platform
 
 ## Overview
 
@@ -14,7 +14,7 @@ Full-stack carbon emissions tracking platform for ingesting, normalizing, and re
 
 **Frontend:** https://breathe-esg-assignment-16xb.vercel.app  
 **Backend API:** https://breathe-esg-assignment-production-d5dd.up.railway.app/api/v1/  
-**Login:** No authentication required (demo mode â€” all endpoints use AllowAny)
+**Login:** No authentication required (demo mode — all endpoints use AllowAny)
 
 ---
 
@@ -22,12 +22,12 @@ Full-stack carbon emissions tracking platform for ingesting, normalizing, and re
 
 - Multi-source data ingestion (SAP procurement, utility electricity, corporate travel)
 - CSV file upload with per-row validation and error reporting
-- Automatic unit normalization (gallons â†’ liters, MWh â†’ kWh, miles â†’ km)
+- Automatic unit normalization (gallons → liters, MWh → kWh, miles → km)
 - GHG Protocol Scope 1 / 2 / 3 classification with Scope 3 Category 6 (business travel)
-- Emission factor lookup with regional fallback (UK/US â†’ GLOBAL)
+- Emission factor lookup with regional fallback (UK/US → GLOBAL)
 - CO2e calculation using DEFRA 2024 conversion factors
 - Data quality scoring (HIGH / MEDIUM / LOW) with automated anomaly and duplicate detection
-- Review workflow (Pending â†’ Approved / Rejected / Needs Info)
+- Review workflow (Pending → Approved / Rejected / Needs Info)
 - Audit trail (every field change tracked with justification)
 - Audit lock (prevent edits to records included in verified reports)
 - Professional dashboard with bar chart and stats
@@ -40,30 +40,30 @@ Full-stack carbon emissions tracking platform for ingesting, normalizing, and re
 
 ```
 breathe-esg-assignment/
-â”œâ”€â”€ backend/                          Django REST Framework API
-â”‚   â”œâ”€â”€ breathe_esg/                  Project settings and root URL config
-â”‚   â””â”€â”€ core/                         Main application
-â”‚       â”œâ”€â”€ models.py                 9 database models
-â”‚       â”œâ”€â”€ serializers.py            DRF serializers
-â”‚       â”œâ”€â”€ views.py                  API viewsets and upload endpoint
-â”‚       â”œâ”€â”€ services/
-â”‚       â”‚   â”œâ”€â”€ ingestion.py          CSV parsing and row validation
-â”‚       â”‚   â”œâ”€â”€ normalization.py      Unit conversion and CO2e calculation
-â”‚       â”‚   â””â”€â”€ quality.py            Data quality checks
-â”‚       â””â”€â”€ management/commands/
-â”‚           â””â”€â”€ seed_data.py          Emission factors and sample tenant
-â”‚
-â””â”€â”€ frontend/                         React + Vite SPA
-    â””â”€â”€ src/
-        â”œâ”€â”€ pages/
-        â”‚   â”œâ”€â”€ Dashboard.jsx         Stats, chart, recent records
-        â”‚   â”œâ”€â”€ Upload.jsx            Drag-and-drop CSV upload
-        â”‚   â”œâ”€â”€ RecordsList.jsx       Filterable emissions table
-        â”‚   â”œâ”€â”€ RecordDetail.jsx      Single record view
-        â”‚   â””â”€â”€ Settings.jsx          Placeholder settings page
-        â”œâ”€â”€ context/ThemeContext.jsx   Light/dark mode
-        â”œâ”€â”€ api.js                     Axios API client
-        â””â”€â”€ App.jsx                    Layout, routing, sidebar
+├── backend/                          Django REST Framework API
+│   ├── breathe_esg/                  Project settings and root URL config
+│   └── core/                         Main application
+│       ├── models.py                 9 database models
+│       ├── serializers.py            DRF serializers
+│       ├── views.py                  API viewsets and upload endpoint
+│       ├── services/
+│       │   ├── ingestion.py          CSV parsing and row validation
+│       │   ├── normalization.py      Unit conversion and CO2e calculation
+│       │   └── quality.py            Data quality checks
+│       └── management/commands/
+│           └── seed_data.py          Emission factors and sample tenant
+│
+└── frontend/                         React + Vite SPA
+    └── src/
+        ├── pages/
+        │   ├── Dashboard.jsx         Stats, chart, recent records
+        │   ├── Upload.jsx            Drag-and-drop CSV upload
+        │   ├── RecordsList.jsx       Filterable emissions table
+        │   ├── RecordDetail.jsx      Single record view
+        │   └── Settings.jsx          Placeholder settings page
+        ├── context/ThemeContext.jsx   Light/dark mode
+        ├── api.js                     Axios API client
+        └── App.jsx                    Layout, routing, sidebar
 ```
 
 ---
@@ -72,7 +72,7 @@ breathe-esg-assignment/
 
 | File | Contents | Assignment Weight |
 |---|---|---|
-| [MODEL.md](MODEL.md) | Data model design â€” all 9 models, relationships, design decisions | 35% |
+| [MODEL.md](MODEL.md) | Data model design — all 9 models, relationships, design decisions | 35% |
 | [DECISIONS.md](DECISIONS.md) | Every technical decision made, ambiguities resolved, PM questions | 25% |
 | [SOURCES.md](SOURCES.md) | Research on real-world data formats, sample data justification | 20% |
 | [TRADEOFFS.md](TRADEOFFS.md) | Three things deliberately not built and why | 10% |
@@ -135,7 +135,7 @@ python manage.py runserver
 | Health check | http://localhost:8000/api/v1/health/ |
 | Django admin | http://localhost:8000/admin/ |
 
-> **Note:** `seed_data` creates the demo tenant, three data sources, sample users, and all emission factors. It is idempotent â€” safe to run multiple times.
+> **Note:** `seed_data` creates the demo tenant, three data sources, sample users, and all emission factors. It is idempotent — safe to run multiple times.
 
 ---
 
@@ -260,7 +260,7 @@ All factors from DEFRA 2024 unless noted.
 | `travel_car` | 0.171 kg CO2e | per km | GLOBAL | DEFRA 2024 |
 | `travel_bus` | 0.097 kg CO2e | per km | GLOBAL | DEFRA 2024 |
 
-Short haul = < 3,700 km (DEFRA threshold). Long haul = â‰¥ 3,700 km.
+Short haul = < 3,700 km (DEFRA threshold). Long haul = ≥ 3,700 km.
 
 ---
 
@@ -275,7 +275,7 @@ Short haul = < 3,700 km (DEFRA threshold). Long haul = â‰¥ 3,700 km.
 | django-cors-headers | 4.3.0 | CORS for frontend dev |
 | django-filter | 23.3 | Query parameter filtering |
 | pandas | 2.1.3 | CSV parsing |
-| dj-database-url | 2.1.0 | `DATABASE_URL` â†’ Django config |
+| dj-database-url | 2.1.0 | `DATABASE_URL` → Django config |
 | python-dotenv | 1.0.0 | `.env` file loading |
 | psycopg2-binary | 2.9.9 | PostgreSQL driver (production) |
 | gunicorn | 21.2.0 | WSGI server (production) |
@@ -298,12 +298,12 @@ Short haul = < 3,700 km (DEFRA threshold). Long haul = â‰¥ 3,700 km.
 
 See [DECISIONS.md](DECISIONS.md) for the full rationale. In brief:
 
-1. **CSV upload over API integration** â€” same pipeline logic, fraction of the complexity; realistic for initial client onboarding
-2. **Multi-tenant from day 1** â€” every model carries a `tenant` FK; single-tenant in demo but ready to scale
-3. **Immutable raw data** â€” `RawEmissionData` is never modified; all corrections go through `EmissionRecordEdit`
-4. **Dual quantity storage** â€” `quantity_original` + `quantity_normalized` so analysts can verify unit conversions
-5. **Emission factor snapshot** â€” `emission_factor_value` denormalized onto the record so CO2e is reproducible even if the factor is later revised
-6. **No authentication in demo** â€” `AllowAny` for frictionless evaluation; `User` model and role schema are production-ready
+1. **CSV upload over API integration** — same pipeline logic, fraction of the complexity; realistic for initial client onboarding
+2. **Multi-tenant from day 1** — every model carries a `tenant` FK; single-tenant in demo but ready to scale
+3. **Immutable raw data** — `RawEmissionData` is never modified; all corrections go through `EmissionRecordEdit`
+4. **Dual quantity storage** — `quantity_original` + `quantity_normalized` so analysts can verify unit conversions
+5. **Emission factor snapshot** — `emission_factor_value` denormalized onto the record so CO2e is reproducible even if the factor is later revised
+6. **No authentication in demo** — `AllowAny` for frictionless evaluation; `User` model and role schema are production-ready
 
 ---
 
@@ -311,11 +311,11 @@ See [DECISIONS.md](DECISIONS.md) for the full rationale. In brief:
 
 See [TRADEOFFS.md](TRADEOFFS.md) for full context.
 
-- **No real-time API integration** â€” CSV file upload only
-- **Scope 3 coverage** â€” Category 6 (business travel) only; Categories 1â€“15 not fully implemented
-- **No authentication** â€” disabled for demo evaluation
-- **Database** â€” PostgreSQL on Railway (production); SQLite for local development
-- **Synchronous upload processing** â€” large files (10,000+ rows) will be slow; Celery would be the production fix
+- **No real-time API integration** — CSV file upload only
+- **Scope 3 coverage** — Category 6 (business travel) only; Categories 1–15 not fully implemented
+- **No authentication** — disabled for demo evaluation
+- **Database** — PostgreSQL on Railway (production); SQLite for local development
+- **Synchronous upload processing** — large files (10,000+ rows) will be slow; Celery would be the production fix
 
 ---
 
@@ -323,7 +323,7 @@ See [TRADEOFFS.md](TRADEOFFS.md) for full context.
 
 - [ ] Enable JWT authentication (`djangorestframework-simplejwt`)
 - [ ] Enforce role-based permissions per viewset
-- [x] Switch `DATABASE_URL` to PostgreSQL â€” Done (Railway PostgreSQL)
+- [x] Switch `DATABASE_URL` to PostgreSQL — Done (Railway PostgreSQL)
 - [ ] Move CSV processing to Celery background tasks
 - [ ] Add API rate limiting
 - [ ] Configure `ALLOWED_HOSTS` and disable `DEBUG`
@@ -347,28 +347,26 @@ See [TRADEOFFS.md](TRADEOFFS.md) for full context.
 
 **Frontend can't reach the API (network error):**
 - Backend must be running on port 8000 before starting the frontend
-- Check browser console â€” CORS errors mean the backend isn't running
+- Check browser console — CORS errors mean the backend isn't running
 
 **Upload returns "Data source not found":**
 - Run `python manage.py seed_data` to create the demo data sources
 - Select the correct data source from the dropdown in the Upload UI
 
 **Records show 0 CO2e:**
-- The emission factor for that activity type is missing â€” check `backend/sample_data/` files match the expected column names
+- The emission factor for that activity type is missing — check `backend/sample_data/` files match the expected column names
 - Run `seed_data` again if emission factors are missing
 
 ---
 
 ## Project Documents
 
-- [MODEL.md](MODEL.md) â€” complete data model reference
-- [DECISIONS.md](DECISIONS.md) â€” engineering decisions and PM questions
-- [TRADEOFFS.md](TRADEOFFS.md) â€” deliberate scope boundaries
-- [SOURCES.md](SOURCES.md) â€” research on real-world data formats
+- [MODEL.md](MODEL.md) — complete data model reference
+- [DECISIONS.md](DECISIONS.md) — engineering decisions and PM questions
+- [TRADEOFFS.md](TRADEOFFS.md) — deliberate scope boundaries
+- [SOURCES.md](SOURCES.md) — research on real-world data formats
 
 ---
 
 Built by: Sharadhi  
-For: Breathe ESG Tech Intern Assignment â€” May 2026
-   
- 
+For: Breathe ESG Tech Intern Assignment — May 2026
